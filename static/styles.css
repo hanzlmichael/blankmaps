@@ -1,0 +1,344 @@
+* {
+  font-family: 'Roboto Flex', sans-serif;
+  box-sizing: border-box;
+  margin:0;
+  /* padding:0; */
+}
+
+:root {
+  --blue-primary: #0091ea;
+  --gray-primary: rgb(243, 243, 243);
+  --gray-secondary: rgba(55, 55, 55, 0.768);
+  --gray-hover: #bdbdbd;
+  --gray-hover-secondary: #9e9e9e;
+  --gray-light: rgba(252, 252, 252, 0.344);
+  --black-primary: rgb(35,35,35);
+  --yellow: #f5c618;
+}
+
+/* layout */
+.layout {
+  display:grid;
+  grid-template-columns: auto 1fr;
+}
+
+/* header.ejs */
+.header a {
+  text-decoration:none;
+  color:white;
+  background-color:#0091ea;
+  padding:0.5rem 0.75rem;
+  border-radius:0.3rem;
+}
+.header .logo {
+  text-transform:uppercase;
+  font-weight: 700;
+  color:white;
+  font-size:1.25rem;
+  border:1px solid white;
+  padding:0.25rem 0.5rem; 
+}
+.header {
+  background-color:var(--black-primary);
+  display:flex;
+  justify-content: space-between;
+  align-items:center;
+  padding:1rem 2rem;
+  height:10vh;
+}
+
+/* question-list */
+aside {
+  width:15rem;
+  background-color:var(--gray-light);
+  color:var(--gray-secondary);
+  height: 90vh;
+  overflow-y: scroll;
+}
+aside h2 {
+  text-align: center;
+  padding:1rem 0 0.6rem;  
+  margin-bottom: 0.5rem;
+  margin-right: 0.5rem;
+  text-transform: uppercase;
+  font-weight: 600;
+  top:0.1rem;
+  position: relative;
+  font-size: 1.2rem;
+}
+#addQuestion:hover {
+  cursor: pointer;
+}
+.question {
+  font-weight: 800;
+}
+.q-wrap {
+  display:flex;
+  justify-content: space-between;
+  align-items: center;
+  padding:0.4rem 0.8rem;
+  margin: 0.75rem;
+  background-color: var(--gray-primary);
+}
+.q-wrap span {
+  padding:0 0.25rem;
+}
+.q-wrap:hover, .q-wrap-active {
+  background-color: var(--gray-hover);
+  color:white;
+  cursor: pointer;
+}
+
+.q-wrap span:hover {
+  background-color: var(--gray-hover-secondary);
+}
+
+/* question-list + button */
+.svg-wrap {
+  width:2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  padding:0.35rem;
+  position: relative;
+}
+.add-option-wrapper .svg-wrap {
+  top:0.2rem;
+}
+
+.svg-wrap svg {
+  height: 100%;
+  width: auto;
+  fill:var(--gray-secondary);
+}
+.svg-wrap:hover {
+  background-color:var(--gray-primary);
+  cursor: pointer;
+}
+.question-header-wrap {
+  display:flex;
+  align-items: center;
+  justify-content: center;
+  border-bottom: 0.1rem solid var(--gray-hover);
+}
+
+/* main */
+#main {
+  padding:1rem;
+  position: relative;
+}
+
+.add-map-wrapper label {
+  cursor:pointer;
+  width: 100%;
+  padding: 0.5rem 1rem;
+  display:inline-flex;
+  align-items: center;
+}
+#add-map {
+  display:none;
+}
+.add-map-wrapper {
+  background-color: var(--gray-primary);
+  width: fit-content;  
+  text-transform: uppercase;
+  margin-top: 0.5rem;
+  color: var(--black-primary);
+}
+.add-map-wrapper svg {
+  fill: var(--black-primary);
+}
+.add-map-wrapper:hover {
+  background-color: var(--gray-hover);
+  color:White;
+}
+.add-map-wrapper:hover svg{
+  fill: white;
+}
+
+/* Inputs, Selects */
+.try-select-wrapper {
+  border: 1px solid var(--gray-secondary);
+  border-radius: 0.25rem;
+  padding: 0.5rem 1rem;
+  min-width:13rem;
+  width: fit-content;
+  display:flex;
+  justify-content: space-between;
+  align-items: center;
+  color: var(--black-primary);
+}
+.w-select {
+  position: relative;
+}
+
+.opts {
+  border:1px solid lightgray;
+  width: fit-content;
+  min-width: 9rem;
+  margin-top: 0.3rem;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1), 0 3px 10px 0 rgba(0, 0, 0, 0.1);
+  background-color: white;
+  display:none;
+  position: absolute;
+}
+.opt:hover {
+  background-color: #f0f0f0;  
+}
+.opt {
+  padding:0.5rem 1rem;
+}
+.opt-active {
+  display: block;
+  z-index: 99;
+}
+.w-select {
+  width: fit-content;
+}
+.w-select:hover {
+  cursor: pointer;
+}
+
+.fieldset-no-border {
+  border:none;
+  padding:0;
+}
+.select-wrapper {
+  display:grid;
+  grid-template-columns: 1fr;
+  gap:0.5rem;
+}
+
+
+/* INPUTS */
+.field-input {  
+  border-radius:0.25rem;
+  border:2px solid var(--gray-secondary);
+}
+
+.field-input-sm {
+  height:3.5rem;    
+  max-width: fit-content;
+  
+}
+.field-input-large {
+  height:5rem;
+  max-width: fit-content;
+}
+.field--active {
+  border:2px solid var(--blue-primary);
+}
+.legend--active {
+  color: var(--blue-primary);
+}
+
+/* editable divs */
+#test-title-field {  
+  min-width:40rem;
+  height: fit-content;
+}
+#add-option-field {
+  height: fit-content;  
+}
+#test-title:focus, #points-input:focus, #add-option-input:focus {
+  outline:none;
+  border:none;
+}
+#points-input {  
+  font-size:1.25rem;
+  text-align:center;
+}
+#test-title {
+  font-size: 2rem;
+}
+#add-option-input {
+  font-size:1.25rem;
+}
+
+/* 'Přidat možnost' komponent*/
+.add-option-wrapper {
+  width: 20rem;
+  display:flex;
+  align-items: center;
+  gap:0.5rem;
+}
+
+   /* Přidávání možností */
+   .option-wrapper {
+    display:flex;
+    gap:0.5rem;
+    align-items:center;
+    margin:1rem 0;    
+  flex-wrap: wrap;
+  }
+  .option-wrapper > * {
+    display:flex;
+    align-items:center;
+    gap:0.5rem;
+    justify-content:space-between;
+  }
+  .option input {
+    display:none;
+  }
+  .option {
+    background-color: rgb(243, 243, 243);
+    color:var(--black-primary);
+    padding:0.5rem 1rem;
+    border-radius: 0.25rem;
+  }
+  .option-active {
+    background-color: #41c300;
+    color:white;
+  }
+  .option:hover, label {
+    cursor:pointer;
+  }
+  .option span:hover {
+    background-color:var(--gray-hover-secondary);
+  }
+
+  h3 {
+    color:var(--gray-secondary);
+    margin:1rem 0;
+    font-weight: 500;
+    letter-spacing: 0.10rem;
+  }
+ 
+  canvas {
+    border:1px solid var(--gray-hover-secondary);
+  }
+
+  .canvas-container svg {
+    position: absolute;
+    right:0.25rem;
+    bottom:0.25rem;
+    fill: rgb(138, 138, 138);
+  }
+  .canvas-container svg:hover {
+    filter:brightness(0.5);
+    cursor: pointer;
+  }
+
+  #main {
+    display:grid;
+    grid-template-columns: fit-content(50%) minmax(12rem, 35rem);
+    grid-template-rows: auto 1fr;
+    gap:1rem;
+  }
+  #main .main-grid1 {
+    grid-column: 1 / 3;  
+  }
+  #main .main-grid3 {
+    border: 1px solid var(--gray-hover);
+    padding:1rem 2rem;
+    align-self:flex-start;
+    justify-self: flex-end;
+    /* align-self: center;
+    justify-self: center; */
+  }
+
+  .layout-wrapper {
+    max-width: 1920px;
+    margin:0 auto;
+    border-left:1px solid var(--black-primary);
+    border-right:1px solid var(--black-primary);
+  }
