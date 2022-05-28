@@ -1,8 +1,13 @@
-/* Inicializace ContentEditableModulu */
-maxlengthContentEditableModule.maxlengthContentEditable();
+import { startAddingPoints } from './addPoint.js'
+import { initObjectDeleteIcon } from './initIcon.js'
 
 /* Inicializace Fabric canvas */
-let canvas = new fabric.Canvas('canvas')
+export let canvas = new fabric.Canvas('canvas')
+
+initObjectDeleteIcon()
+
+/* Inicializace ContentEditableModulu */
+maxlengthContentEditableModule.maxlengthContentEditable();
 
 /* Select pro výběr tvaru posloucha na kliknuti */ 
 document.querySelectorAll('.try-select-wrapper').forEach(el => el.addEventListener('click', showOptions, false))
@@ -57,12 +62,13 @@ function addQuestion() {
  </div>`
   parent.insertAdjacentHTML('beforeend', child)
   document.querySelector('.q-wrap:last-of-type').addEventListener('click', setActiveQuestion) 
+  document.querySelector('.q-wrap:last-of-type').click()
 }
 /* smazání otázky */
 function deleteQuestion(e) {
  document.querySelector('.q-wrap:last-of-type').remove()
 }
-/* TODO : Hover a focus po vybrání otázky */
+/* Nastavení aktivní otázky */
 function setActiveQuestion(e) {
   if (document.querySelector('.q-wrap-active')) {
     document.querySelector('.q-wrap-active').classList.remove('q-wrap-active')
@@ -115,9 +121,9 @@ document.querySelectorAll('.editable').forEach(el => el.addEventListener('keypre
   }
 }))
 
-function createOption(e) {
+/* function createOption(e) {
   console.log(document.querySelector('#add-option-input').innerHTML)
-}
+} */
 
 /* Point fieldset povolit jen čísla */
 document.querySelector("#points-input").addEventListener('keypress', function(e) {
@@ -192,25 +198,46 @@ document.querySelector('#add-map').addEventListener("change", function(e) {
   reader.readAsDataURL(file) 
 })
 createResizeIcon()
+createAddIcon()
+createTickIcon() 
     /* Vytvorit ikonku pro resize */
 function createResizeIcon() {
-  let svg = '<svg xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24" height="24" viewBox="0 0 24 24" width="24" class="resize-icon"><g><rect fill="none" height="24" width="24"/></g><g><g><g><path d="M15,3l2.3,2.3l-2.89,2.87l1.42,1.42L18.7,6.7L21,9V3H15z M3,9l2.3-2.3l2.87,2.89l1.42-1.42L6.7,5.3L9,3H3V9z M9,21 l-2.3-2.3l2.89-2.87l-1.42-1.42L5.3,17.3L3,15v6H9z M21,15l-2.3,2.3l-2.87-2.89l-1.42,1.42l2.89,2.87L15,21h6V15z"/></g></g></g></svg>'
+  let svg = '<svg xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24" height="32" viewBox="0 0 24 24" width="32" class="resize-icon"><g><rect fill="none" height="24" width="24"/></g><g><g><g><path d="M15,3l2.3,2.3l-2.89,2.87l1.42,1.42L18.7,6.7L21,9V3H15z M3,9l2.3-2.3l2.87,2.89l1.42-1.42L6.7,5.3L9,3H3V9z M9,21 l-2.3-2.3l2.89-2.87l-1.42-1.42L5.3,17.3L3,15v6H9z M21,15l-2.3,2.3l-2.87-2.89l-1.42,1.42l2.89,2.87L15,21h6V15z"/></g></g></g></svg>'
   document.querySelector('.canvas-container').insertAdjacentHTML('beforeend', svg)
   document.querySelector('.resize-icon').addEventListener('click', resetZoom)
 }
 
-/* Zoomovani nad mapou */
+function createAddIcon() {
+  let svg = '<svg xmlns="http://www.w3.org/2000/svg" class="add-icon" height="32" viewBox="0 0 24 24" width="32"><path d="M0 0h24v24H0z" fill="none"/><path d="M19 3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-2 10h-4v4h-2v-4H7v-2h4V7h2v4h4v2z"/></svg>'
+  document.querySelector('.canvas-container').insertAdjacentHTML('beforeend', svg)
+  document.querySelector('.add-icon').addEventListener('click', startAddingPoints)
+}
+
+function createTickIcon() {
+  let svg = '<svg xmlns="http://www.w3.org/2000/svg" class="tick-icon" height="32" viewBox="0 0 24 24" width="32"><path d="M0 0h24v24H0z" fill="none"/><path d="M19 3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.11 0 2-.9 2-2V5c0-1.1-.89-2-2-2zm-9 14l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>'
+  document.querySelector('.canvas-container').insertAdjacentHTML('beforeend', svg)
+  document.querySelector('.tick-icon').addEventListener('click', setCorrectAnswer)
+}
+//TODO
+function activateAddingShape() {  
+}
+//TODO
+function setCorrectAnswer() {
+
+}
+
+// Zoomovani nad mapou
 canvas.on('mouse:wheel', function(opt) {
-  var delta = opt.e.deltaY
-  var zoom = canvas.getZoom()
-  zoom *= 0.999 ** delta
-  if (zoom > 20) zoom = 20
-  if (zoom < 0.01) zoom = 0.01
-  canvas.zoomToPoint({ x: opt.e.offsetX, y: opt.e.offsetY }, zoom)
-  opt.e.preventDefault()
-  opt.e.stopPropagation()
+  var delta = opt.e.deltaY;
+  var zoom = canvas.getZoom();
+  zoom *= 0.999 ** delta;
+  if (zoom > 20) zoom = 20;
+  if (zoom < 0.01) zoom = 0.01;
+  canvas.zoomToPoint({ x: opt.e.offsetX, y: opt.e.offsetY }, zoom);
+  opt.e.preventDefault();
+  opt.e.stopPropagation();
   /* createResizeIconOnCanvas() */
-})
+});
 
 /* Resetovani zoomu do puvodni pozice mapy */
 function resetZoom() {
