@@ -1,5 +1,6 @@
 import { startAddingPoints } from './addPoint.js'
 import { initObjectDeleteIcon } from './initIcon.js'
+import { startAddingPolygons } from './addPolygon.js'
 
 /* Inicializace Fabric canvas */
 export let canvas = new fabric.Canvas('canvas')
@@ -17,6 +18,7 @@ document.querySelectorAll('.opt').forEach(el => el.addEventListener('click', sel
 /* Zobrazi div s možnostmi options*/
 function showOptions(e) {
   let closest = e.target.closest('.try-select-wrapper').id
+  console.log(closest)
   closest = closest.substring(0, closest.length - 5)
   document.querySelector(`#${closest}`).classList.add('opt-active')
 }
@@ -28,21 +30,24 @@ function hideOptions() {
 /* */
 function selectOption(e) {
   let text = e.target.innerHTML
+  let shape = e.target.dataset.shape
   let closest = e.target.closest('.w-select')
   closest = closest.childNodes[1].id
-  changeSelectedText(text, closest)  
+  changeSelectedText(text, shape, closest)  
 }
 /* změní vybraný text v elementu select */
-function changeSelectedText(selectedOption, id) {
+function changeSelectedText(selectedOption,shape, id) {
   document.querySelector(`#${id} .tryselect`).innerHTML = selectedOption
+  document.querySelector(`#${id} .tryselect`).setAttribute('data-shape', shape)
   hideOptions()
 }
 
-function setTypeShape(type) {
+/* function setTypeShape(type) {
   let change = document.querySelector('#type-shape-wrap > div')
   let html = document.querySelector(`[data-shape="${type}"]`).innerHTML
   change.innerHTML = html
-}
+} */
+
 function setQuestionType(type) {
   let change = document.querySelector('#type-question-wrap > div')
   let html = document.querySelector(`[data-value="${type}"]`).innerHTML
@@ -58,10 +63,11 @@ function addQuestion() {
   let count = document.querySelectorAll('.q-wrap').length
   let child = `<div class="q-wrap">
   <div class="question">${count+1}</div>
-  <span onclick="deleteQuestion(this)">&#10006;</span>
+  <span onclick="deleteQuestion()">&#10006;</span>
  </div>`
   parent.insertAdjacentHTML('beforeend', child)
   document.querySelector('.q-wrap:last-of-type').addEventListener('click', setActiveQuestion) 
+  //document.querySelector('.q-wrap:last-of-type span').addEventListener('click', deleteQuestion)
   document.querySelector('.q-wrap:last-of-type').click()
 }
 /* smazání otázky */
@@ -210,7 +216,34 @@ function createResizeIcon() {
 function createAddIcon() {
   let svg = '<svg xmlns="http://www.w3.org/2000/svg" class="add-icon" height="32" viewBox="0 0 24 24" width="32"><path d="M0 0h24v24H0z" fill="none"/><path d="M19 3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-2 10h-4v4h-2v-4H7v-2h4V7h2v4h4v2z"/></svg>'
   document.querySelector('.canvas-container').insertAdjacentHTML('beforeend', svg)
-  document.querySelector('.add-icon').addEventListener('click', startAddingPoints)
+  document.querySelector('.add-icon').addEventListener('click', startDraw)
+}
+
+function startDraw() {
+  let typeShape = getTypeShape()
+
+  if (typeShape == 'point') {
+    startAddingPoints()
+  }
+  if (typeShape == 'polygon') {
+    startAddingPolygons()
+  }
+}
+
+function setTypeShape(type) {
+  let change = document.querySelector('#type-shape-wrap > div')
+  console.log('here')
+  console.log( document.querySelector(`[data-shape="${type}"]`).innerHTML)
+  let html = document.querySelector(`[data-shape="${type}"]`).innerHTML
+  let shapeType = document.querySelector(`[data-shape="${type}"]`)
+  let result = shapeType.dataset.shape
+  change.innerHTML = html
+  change.setAttribute('data-shape', result)
+}
+
+function getTypeShape() {
+  console.log(document.querySelector('.tryselect'))
+  return document.querySelector('.tryselect').dataset.shape
 }
 
 function createTickIcon() {

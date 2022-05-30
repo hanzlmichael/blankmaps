@@ -8,7 +8,7 @@ export function startAddingPoints() {
       if (o.id === "delete") {
         canvas.remove(o);
       }
-    });
+    })
   }
 
   canvas.on("mouse:move", function (options) {
@@ -41,18 +41,19 @@ export function startAddingPoints() {
         left: obj.x - 15,
       });
       newObj.borderColor = "red";
-      /* newObj.hasControls = false; */
       newObj.borderDashArray = [5];
       newObj.padding = 5;
+      
       deletePoint();
       canvas.add(newObj);
       createdPoint = false;
       let controls = ['tl', 'tr', 'br', 'bl', 'ml', 'mt', 'mr', 'mb', 'mtr']
-      controls.forEach(control => newObj.setControlVisible(control, false))
+      controls.forEach(control => newObj.setControlVisible(control, false))      
+      
+      let objectCount = canvas.getObjects().length
+      canvas.setActiveObject(canvas.item(objectCount-1))
     }
-  })
-
-  
+  })  
 }
 
 

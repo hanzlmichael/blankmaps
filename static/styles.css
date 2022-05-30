@@ -84,7 +84,7 @@ aside h2 {
   padding:0 0.25rem;
 }
 .q-wrap:hover, .q-wrap-active {
-  background-color: #f5c618;
+  background-color: rgb(138,138,138);
   color:white;
   cursor: pointer;
 }
@@ -142,10 +142,11 @@ aside h2 {
   width: fit-content;  
   text-transform: uppercase;
   margin-top: 0.5rem;
-  color: var(--black-primary);
+  font-weight: 600;
+  color: var(--gray-secondary);
 }
 .add-map-wrapper svg {
-  fill: var(--black-primary);
+  fill: var(--gray-secondary);
 }
 .add-map-wrapper:hover {
   background-color: var(--gray-hover);

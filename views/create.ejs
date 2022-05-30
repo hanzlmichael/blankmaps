@@ -1,5 +1,5 @@
 <%- include('partials/head'); %>
-
+<script src="../static/script.js" type="module" defer></script>
 <body>
   <div class="layout-wrapper">
   <%- include('partials/header'); %>
@@ -41,7 +41,7 @@
             <!-- <legend>Vyber tvar</legend> -->
           <div class="w-select">
             <div class="try-select-wrapper" id="type-shape-wrap">
-              <div class="tryselect">Bod</div>
+              <div class="tryselect" data-shape="point">Bod</div>
               <span>&#9660;</span>
             </div>
             
@@ -100,7 +100,12 @@
 </div>
 
 </body>
+<script>
+  function deleteQuestion(e) {
+    document.querySelector('.q-wrap:last-of-type').remove()
+   }
+</script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/fabric.js/521/fabric.js"></script>
-<script src="../static/script.js" type="module" defer></script>
+
 <script src="https://unpkg.com/maxlength-contenteditable@1.0.1/dist/maxlength-contenteditable.js"></script>
 </html>
