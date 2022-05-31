@@ -4,9 +4,11 @@ function setDefaultCursor() {
 }
 
 function turnOfControls(obj) {
+  console.log('heyyy')
   let controls = ["tl", "tr", "br", "bl", "ml", "mt", "mr", "mb", "mtr"]
   controls.forEach((control) => obj.setControlVisible(control, false))
-  obj.hasBorders = false;
+  /* obj.hasBorders = false; */
 }
+
 
 export { setDefaultCursor, turnOfControls }

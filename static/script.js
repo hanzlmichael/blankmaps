@@ -27,6 +27,8 @@ function hideOptions() {
   document.querySelector('.opt-active').classList.remove('opt-active')
 }
 
+
+
 /* */
 function selectOption(e) {
   let text = e.target.innerHTML

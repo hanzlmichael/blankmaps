@@ -1,4 +1,7 @@
-import { canvas } from "./script.js";
+import { canvas } from "./script.js"
+import { turnOfControls } from "./globalPrototypeSetting.js"
+
+
 
 export function startAddingPolygons() {
   let isDrawing = true
@@ -11,23 +14,24 @@ export function startAddingPolygons() {
   let afterFirstClick = false
   let startCircle
 
-  function turnOfControls(obj) {
+  /* function turnOfControls(obj) {
     let controls = ["tl", "tr", "br", "bl", "ml", "mt", "mr", "mb", "mtr"]
     controls.forEach((control) => obj.setControlVisible(control, false))
-    obj.hasBorders = false;
-  }
+    obj.hasBorders = false
+  } */
 
   function drawCircleWhenDragging(coords) {
     startCircle = new fabric.Circle({
       radius: "2",
-      fill: "tomato",
+      fill: "rgba(255,0,0,0.75)",
       top: coords.y - 2,
       left: coords.x - 2,
       id: "permanent",
       startPoint: true,
     })
-    turnOfControls(startCircle);
-    canvas.add(startCircle);
+    turnOfControls(startCircle)
+    startCircle.hasBorders = false
+    canvas.add(startCircle)
     start = coords
   }
 
@@ -36,7 +40,7 @@ export function startAddingPolygons() {
       if (afterFirstClick) {
         arr[clicks] = getCoords(options)
         deletePolygon()
-        drawPolygon("temporary", "rgba(240,240,240,0.5)")
+        drawPolygon("temporary", "rgba(255,0,0,0.5)")
 
         if (
           isPointInCircle(canvas.getPointer("mouse:over", false)) &&
@@ -51,13 +55,13 @@ export function startAddingPolygons() {
         drawCircleWhenDragging(coords)
       }
     }
-  });
+  })
 
   canvas.on("mouse:down", function (options) {
     if (isDrawing) {
       afterFirstClick = true
       arr.push(getCoords(options))
-      drawPolygon("temporary", "rgba(240,240,240,0.5)")
+      drawPolygon("temporary", "rgba(255,0,0,0.5)")
       clicks++
 
       if (
@@ -68,9 +72,11 @@ export function startAddingPolygons() {
         deleteStartPoint()
         arr[clicks] = start
         arr[clicks - 1] = start
-        drawPolygon("permament", "tomato")
-        isDrawing = false
+
+        isDrawing = false        
+        drawFinalPolygonTest()
         resetValues()
+        //"#F5423D" red color stejna jako close icon
       }
     }
   })
@@ -87,13 +93,13 @@ export function startAddingPolygons() {
   function drawPolygon(type, color) {
     let polygon = new fabric.Polyline(arr, {
       fill: color,
-      stroke: "tomato",
+      stroke: "red",
       strokeLineJoin: "round",
       strokeWidth: 1,
       id: type,
     })
-
-    turnOfControls(polygon);
+    turnOfControls(polygon)
+    polygon.hasBorders = false
     canvas.add(polygon)
   }
   function deletePolygon() {
@@ -106,10 +112,27 @@ export function startAddingPolygons() {
   function getTemporaryPolygon() {
     canvas.getObjects().forEach(function (o) {
       if (o.id === "temporary") {
-        o.set("fill", "tomato")
+        o.set("fill", "rgba(255,0,0,0.75)")
       }
     })
   }
+
+  function drawFinalPolygonTest() {
+    var poly = new fabric.Polyline(
+      arr,
+      {
+        fill: "rgba(255,0,0,0.75)",
+        stroke: "red",
+        id: "permament"
+      }
+    )
+    poly.borderColor = "red"
+    poly.borderDashArray = [5]
+    poly.padding = 5
+    turnOfControls(poly)
+    canvas.add(poly)
+  }
+
   function deleteStartPoint() {
     canvas.getObjects().forEach(function (o) {
       if (o.startPoint === true) {
