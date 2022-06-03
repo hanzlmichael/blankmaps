@@ -216,7 +216,8 @@ function createResizeIcon() {
 }
 
 function createAddIcon() {
-  let svg = '<svg xmlns="http://www.w3.org/2000/svg" class="add-icon" height="32" viewBox="0 0 24 24" width="32"><path d="M0 0h24v24H0z" fill="none"/><path d="M19 3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-2 10h-4v4h-2v-4H7v-2h4V7h2v4h4v2z"/></svg>'
+  let svg = '<svg xmlns="http://www.w3.org/2000/svg" class="add-icon" height="32" viewBox="0 0 24 24" width="32"><rect style="fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:0.37795275;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" id="rect1418" width="12.940678" height="12.050847"x="5.3135595" y="5.7966104"/><path d="M0 0h24v24H0z" fill="none" /><path d="M19 3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-2 10h-4v4h-2v-4H7v-2h4V7h2v4h4v2z" style="fill:#0091ea;fill-opacity:1" /></svg>'
+  //let svg = '<svg xmlns="http://www.w3.org/2000/svg" class="add-icon" height="32" viewBox="0 0 24 24" width="32"><path d="M0 0h24v24H0z" fill="none"/><path d="M19 3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-2 10h-4v4h-2v-4H7v-2h4V7h2v4h4v2z"/></svg>'
   document.querySelector('.canvas-container').insertAdjacentHTML('beforeend', svg)
   document.querySelector('.add-icon').addEventListener('click', startDraw)
 }
@@ -249,7 +250,8 @@ function getTypeShape() {
 }
 
 function createTickIcon() {
-  let svg = '<svg xmlns="http://www.w3.org/2000/svg" class="tick-icon" height="32" viewBox="0 0 24 24" width="32"><path d="M0 0h24v24H0z" fill="none"/><path d="M19 3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.11 0 2-.9 2-2V5c0-1.1-.89-2-2-2zm-9 14l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>'
+ let svg = '<svg xmlns="http://www.w3.org/2000/svg" height="32" class="tick-icon" viewBox="0 0 24 24" width="32"><rect style="fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:0.37795275;stroke-it:4;stroke-dasharray:none;stroke-opacity:1" id="rect5738" width="15.661017" height="15.152542" x="4.3728814" y="4.4745765" /><path d="M0 0h24v24H0z" fill="none"/><path d="M19 3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.11 0 2-.9 2-2V5c0-1.1-.89-2-2-2zm-9 14l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" style="fill:#0091ea;fill-opacity:1"/></svg>'
+//  let svg = '<svg xmlns="http://www.w3.org/2000/svg" class="tick-icon" height="32" viewBox="0 0 24 24" width="32"><path d="M0 0h24v24H0z" fill="none"/><path d="M19 3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.11 0 2-.9 2-2V5c0-1.1-.89-2-2-2zm-9 14l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>'
   document.querySelector('.canvas-container').insertAdjacentHTML('beforeend', svg)
   document.querySelector('.tick-icon').addEventListener('click', setCorrectAnswer)
 }
