@@ -2,17 +2,30 @@ import { canvas } from "./script.js"
 import { turnOfControls } from "./globalPrototypeSetting.js"
 
 
+export function getvals() {
+  return start
+}
+var arr = []
+let start
+let clicks = 0
+let afterFirstClick = false
+let startCircle
 
 export function startAddingPolygons() {
+  console.log(2)
+  deletePolygon()
+  resetValues()
   let isDrawing = true
   fabric.Object.prototype.moveCursor = "default"
   fabric.Object.prototype.hoverCursor = "default"
 
-  let arr = []
+  /* let arr = []
   let start
   let clicks = 0
   let afterFirstClick = false
   let startCircle
+  resetValues() */
+
 
   /* function turnOfControls(obj) {
     let controls = ["tl", "tr", "br", "bl", "ml", "mt", "mr", "mb", "mtr"]
@@ -20,7 +33,9 @@ export function startAddingPolygons() {
     obj.hasBorders = false
   } */
 
-  function drawCircleWhenDragging(coords) {
+
+
+  function drawCircleWhenDragging(coords) {    
     startCircle = new fabric.Circle({
       radius: "2",
       fill: "rgba(255,0,0,0.75)",
@@ -75,7 +90,7 @@ export function startAddingPolygons() {
 
         isDrawing = false        
         drawFinalPolygonTest()
-        resetValues()
+        //resetValues()
         //"#F5423D" red color stejna jako close icon
       }
     }
@@ -84,8 +99,10 @@ export function startAddingPolygons() {
   function resetValues() {
     clicks = 0
     afterFirstClick = false
-    arr = []
+    arr.length = 0
+    startCircle = null
   }
+
 
   function getCoords(options) {
     return canvas.getPointer(options.e, false)
@@ -126,6 +143,7 @@ export function startAddingPolygons() {
         id: "permament"
       }
     )
+    console.log(arr)
     poly.borderColor = "red"
     poly.borderDashArray = [5]
     poly.padding = 5

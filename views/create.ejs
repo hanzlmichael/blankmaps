@@ -1,111 +1,109 @@
 <%- include('partials/head'); %>
-<script src="../static/script.js" type="module" defer></script>
-<body>
-  <div class="layout-wrapper">
-  <%- include('partials/header'); %>
+  <script src="../static/script.js" type="module" defer></script>
 
-  <div class="layout">
-    <aside id="questions">
-      <div class="question-header-wrap">
-        <h2>otázky</h2>
-        <div id="add-question" class="svg-wrap">
-          <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M0 0h24v24H0z" fill="none"/><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
-        </div>
-      </div>
-      
-    </aside>
+  <body>
+    <div class="layout-wrapper">
+      <%- include('partials/header'); %>
 
-    <main id="main">
-
-      <div class="main-grid1">
-        <fieldset id="test-title-field" class="field-input field-input-large">
-          <legend>Název testu</legend>
-          <div id="test-title" contenteditable="true" data-max-length="60" class="editable"></div>
-        </fieldset>
-
-        <div class="add-map-wrapper">
-          <label for="add-map"><span>nahrát mapu</span><svg xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24" height="24" viewBox="0 0 24 24" width="24"><g><rect fill="none" height="24" width="24"/></g><g><path d="M5,20h14v-2H5V20z M5,10h4v6h6v-6h4l-7-7L5,10z"/></g></svg>
-          </label>
-          <input type="file" id="add-map">
-        </div>
-     </div>
-
-     <div class="main-grid2">
-      <canvas id="canvas"></canvas>
-    </div>
-
-    <div class="main-grid3">
-      <h3>TYP OTÁZKY</h3>
-      <div class="select-wrapper">
-          <fieldset class="fieldset-no-border">
-            <!-- <legend>Vyber tvar</legend> -->
-          <div class="w-select">
-            <div class="try-select-wrapper" id="type-shape-wrap">
-              <div class="tryselect" data-shape="point">Bod</div>
-              <span>&#9660;</span>
+        <div class="layout">
+          <aside id="questions">
+            <div class="question-header-wrap">
+              <h2>otázky</h2>
+              <div id="add-question" class="svg-wrap">
+                <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24">
+                  <path d="M0 0h24v24H0z" fill="none" />
+                  <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z" />
+                </svg>
+              </div>
             </div>
-            
-            <div class="opts" id="type-shape">
-              <div class="opt" data-shape="point">Bod</div>
-              <div class="opt" data-shape="curve">Křivka</div>
-              <div class="opt" data-shape="polygon">Plocha</div>
+          </aside>
+          <main id="main">
+            <div class="main-grid1">
+              <fieldset id="test-title-field" class="field-input field-input-large">
+                <legend>Název testu</legend>
+                <div id="test-title" contenteditable="true" data-max-length="60" class="editable"></div>
+              </fieldset>
+              <div class="add-map-wrapper">
+                <label for="add-map"><span>nahrát mapu</span><svg xmlns="http://www.w3.org/2000/svg"
+                    enable-background="new 0 0 24 24" height="24" viewBox="0 0 24 24" width="24">
+                    <g>
+                      <rect fill="none" height="24" width="24" />
+                    </g>
+                    <g>
+                      <path d="M5,20h14v-2H5V20z M5,10h4v6h6v-6h4l-7-7L5,10z" />
+                    </g>
+                  </svg>
+                </label>
+                <input type="file" id="add-map">
+              </div>
             </div>
-          </div>
-        </fieldset>
-
-        <fieldset class="fieldset-no-border">
-          <!-- <legend>Vyber tvar</legend> -->
-        <div class="w-select">
-          <div class="try-select-wrapper" id="type-question-wrap">
-            <div class="tryselect">V mapě 1 možnost</div>
-            <span>&#9660;</span>
-          </div>
-          
-          <div class="opts" id="type-question">
-            <div class="opt" data-value="single">V mapě 1 možnost</div>
-            <div class="opt" data-value="multiple">V mapě více možností</div>
-          </div>      
+            <div class="main-grid2">
+              <canvas id="canvas"></canvas>
+            </div>
+            <div class="main-grid3">
+              <h3>TYP OTÁZKY</h3>
+              <div class="select-wrapper">
+                <fieldset class="fieldset-no-border">
+                  <!-- <legend>Vyber tvar</legend> -->
+                  <div class="w-select">
+                    <div class="try-select-wrapper" id="type-shape-wrap">
+                      <div class="tryselect" data-shape="point">Bod</div>
+                      <span>&#9660;</span>
+                    </div>
+                    <div class="opts" id="type-shape">
+                      <div class="opt" data-shape="point">Bod</div>
+                      <div class="opt" data-shape="curve">Křivka</div>
+                      <div class="opt" data-shape="polygon">Plocha</div>
+                    </div>
+                  </div>
+                </fieldset>
+                <fieldset class="fieldset-no-border">
+                  <!-- <legend>Vyber tvar</legend> -->
+                  <div class="w-select">
+                    <div class="try-select-wrapper" id="type-question-wrap">
+                      <div class="tryselect">V mapě 1 možnost</div>
+                      <span>&#9660;</span>
+                    </div>
+                    <div class="opts" id="type-question">
+                      <div class="opt" data-value="single">V mapě 1 možnost</div>
+                      <div class="opt" data-value="multiple">V mapě více možností</div>
+                    </div>
+                  </div>
+                </fieldset>
+              </div>
+              <br>
+              <h3>NASTAVENÍ ODPOVĚDI</h3>
+              <div class="add-option-wrapper">
+                <fieldset id="add-option-field" class="field-input field-input-sm">
+                  <legend>Přidat odpověď</legend>
+                  <div id="add-option-input" contenteditable="true" data-max-length="30" class="editable"></div>
+                </fieldset>
+                <div id="add-option" class="svg-wrap">
+                  <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24">
+                    <path d="M0 0h24v24H0z" fill="none" />
+                    <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z" />
+                  </svg>
+                </div>
+              </div>
+              <div class="option-wrapper"></div>
+              <h3>NASTAVENÍ BODŮ ZA OTÁZKU</h3>
+              <fieldset id="points-field" class="field-input  field-input-sm">
+                <legend>Počet bodů</legend>
+                <div id="points-input" contenteditable="true" data-max-length="2" class="editable"></div>
+              </fieldset>
+            </div>
+          </main>
         </div>
-      </fieldset>
+        <%- include('partials/footer'); %>
     </div>
+  </body>
+  <script>
+    function deleteQuestion(e) {
+      document.querySelector('.q-wrap:last-of-type').remove()
+    }
+  </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fabric.js/521/fabric.js"></script>
 
-  <br>
-  <h3>NASTAVENÍ ODPOVĚDI</h3>
-  <div class="add-option-wrapper">
-    <fieldset id="add-option-field" class="field-input field-input-sm">
-      <legend>Přidat odpověď</legend>
-      <div id="add-option-input" contenteditable="true" data-max-length="30" class="editable"></div>
-    </fieldset>
-    <div id="add-option" class="svg-wrap">
-      <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M0 0h24v24H0z" fill="none"/><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
-    </div>
-  </div>  
-  <div class="option-wrapper"></div>
+  <script src="https://unpkg.com/maxlength-contenteditable@1.0.1/dist/maxlength-contenteditable.js"></script>
 
-  <h3>NASTAVENÍ BODŮ ZA OTÁZKU</h3>
-  <fieldset id="points-field"  class="field-input  field-input-sm">
-    <legend>Počet bodů</legend>
-    <div id="points-input" contenteditable="true" data-max-length="2" class="editable"></div>
-  </fieldset>
-</div>
-
-
-    </main>
-  </div>
-
-  
-
-
-  <%- include('partials/footer'); %>
-</div>
-
-</body>
-<script>
-  function deleteQuestion(e) {
-    document.querySelector('.q-wrap:last-of-type').remove()
-   }
-</script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/fabric.js/521/fabric.js"></script>
-
-<script src="https://unpkg.com/maxlength-contenteditable@1.0.1/dist/maxlength-contenteditable.js"></script>
-</html>
+  </html>

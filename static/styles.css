@@ -315,7 +315,7 @@ aside h2 {
     box-shadow: 0 2px 5px rgb(0 0 0 / 3%);
   }
 
-  .canvas-container .resize-icon {
+  /* .canvas-container .resize-icon {
     position: absolute;
     right:0.25rem;
     bottom:0.25rem;
@@ -339,10 +339,52 @@ aside h2 {
     fill: var(--blue-primary);
   }
 
- /*  .controls {
-    display:inline-block;
+  .canvas-container .group-icon {
+    position: absolute;
+    top:4.25rem;
+    left:0.25rem;
+    fill: var(--blue-primary);
+  }
+  .canvas-container .delete-icon {
+    position: absolute;
+    top:6.25rem;
+    left:0.25rem;
+    fill: var(--blue-primary);
+  }
+
+
+  .canvas-container svg {
+    position: absolute;
+    right:0.25rem;
+    bottom:0.25rem;
+    fill: var(--gray-secondary);
   } */
 
+  .canvas-container svg {
+    position: absolute;
+    right:0.25rem;
+    bottom:0.25rem;
+    fill: var(--gray-secondary);
+  }
+  .canvas-container svg:not(:first-of-type) {
+    left:0.25rem;
+  }  
+  .canvas-container .add-icon {
+    top:0.25rem;
+  }
+  .canvas-container .tick-icon {
+    top:2.25rem;
+  }
+  .canvas-container .group-icon {
+    top:4.25rem;
+  }
+  .canvas-container .delete-icon {
+    top:6.25rem;
+  }
+  .canvas-container svg:hover {
+    filter:brightness(1.1);
+    cursor: pointer;
+  }
 
   #main {
     display:grid;
@@ -374,9 +416,6 @@ aside h2 {
   .layout-wrapper {
     max-width: 1920px;
     margin:0 auto;
-    border-left:1px solid var(--black-primary);
-    border-right:1px solid var(--black-primary);
-  }
-
-  body {
+    /* border-left:1px solid var(--black-primary);
+    border-right:1px solid var(--black-primary); */
   }
