@@ -1,10 +1,6 @@
 import { canvas } from "./script.js"
 import { turnOfControls } from "./globalPrototypeSetting.js"
 
-
-export function getvals() {
-  return start
-}
 var arr = []
 let start
 let clicks = 0

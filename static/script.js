@@ -1,11 +1,15 @@
 import { startAddingPoints } from './addPoint.js'
 import { initObjectDeleteIcon } from './initIcon.js'
-import { getvals, startAddingPolygons } from './addPolygon.js'
+import { startAddingPolygons } from './addPolygon.js'
+import { addQuestion, manageQuestion } from './question.js'
+import { activateZooming, resetZoom } from './map.js'
+import { loadPoints } from './points.js'
 
 /* Inicializace Fabric canvas */
 export let canvas = new fabric.Canvas('canvas')
-
+activateZooming()
 initObjectDeleteIcon()
+loadPoints() 
 
 /* Inicializace ContentEditableModulu */
 maxlengthContentEditableModule.maxlengthContentEditable();
@@ -56,39 +60,16 @@ function setQuestionType(type) {
   change.innerHTML = html
 }
 
+/* Prirazeni listeneru pro blok otazek */
+document.querySelector('.questions').addEventListener('click', manageQuestion)
 /* Symbol + v bloku pri přidání otázky poslouchá na kliknutí */
 document.querySelector('#add-question').addEventListener('click', addQuestion)
-
-/* přidání nové otázky */
-function addQuestion() {
-  let parent = document.querySelector('#questions')
-  let count = document.querySelectorAll('.q-wrap').length
-  let child = `<div class="q-wrap">
-  <div class="question">${count+1}</div>
-  <span onclick="deleteQuestion()">&#10006;</span>
- </div>`
-  parent.insertAdjacentHTML('beforeend', child)
-  document.querySelector('.q-wrap:last-of-type').addEventListener('click', setActiveQuestion) 
-  //document.querySelector('.q-wrap:last-of-type span').addEventListener('click', deleteQuestion)
-  document.querySelector('.q-wrap:last-of-type').click()
-}
-/* smazání otázky */
-function deleteQuestion(e) {
- document.querySelector('.q-wrap:last-of-type').remove()
-}
-/* Nastavení aktivní otázky */
-function setActiveQuestion(e) {
-  if (document.querySelector('.q-wrap-active')) {
-    document.querySelector('.q-wrap-active').classList.remove('q-wrap-active')
-  }
-  e.target.classList.add('q-wrap-active')
-}
 
 
 /* Test title Setting*/
 
 
-/* Kliknuti na input yobrayi modry okraj */
+/* Kliknuti na input zobrazi modry okraj */
 document.addEventListener('click', checkForInputs)
 let lastActive = false
 
@@ -122,23 +103,24 @@ document.querySelector('#add-option').addEventListener('click', createOption)
 //document.querySelector('#add-option-input').addEventListener('keydown', createOption)
 
 /* zabranit odsazeni radku enterem */
-document.querySelectorAll('.editable').forEach(el => el.addEventListener('keypress', (e) => {
-  console.log(e)
+document.querySelector('#add-option-input').addEventListener('keypress', (e) => {
+  
   if (e.which === 13) {
       e.preventDefault();
+      createOption()
   }
-}))
+})
 
 /* function createOption(e) {
   console.log(document.querySelector('#add-option-input').innerHTML)
 } */
 
 /* Point fieldset povolit jen čísla */
-document.querySelector("#points-input").addEventListener('keypress', function(e) {
+/* document.querySelector("#points-input").addEventListener('keypress', function(e) {
   console.log(1)
   if (isNaN(String.fromCharCode(e.which))) 
     e.preventDefault();
-})
+}) */
 
 /* Přidávání možností | odpovědi */
 //document.querySelectorAll('.option label').forEach(el => el.addEventListener('click', setActiveOption))
@@ -161,6 +143,7 @@ function createOption() {
   document.querySelector('.option-wrapper .option:last-child label').addEventListener('click', setActiveOption)
   document.querySelector('.option-wrapper .option:last-child span').addEventListener('click', deleteOption)
   document.querySelector('.option-wrapper .option:first-child label').click()
+  document.querySelector('#add-option-input').innerHTML = ""
 }
    /* Tlačítko add-option poslouchá na kliknutí */
 document.querySelector('#add-option').addEventListener('click', createOption)
@@ -205,6 +188,8 @@ document.querySelector('#add-map').addEventListener("change", function(e) {
   }
   reader.readAsDataURL(file) 
 })
+
+
 createResizeIcon()
 createAddIcon()
 createTickIcon() 
@@ -268,6 +253,7 @@ function createDeleteIcon() {
 
 createDeleteIcon()
 createGroupIcon()
+
 //TODO
 function activateAddingShape() {  
 }
@@ -286,22 +272,3 @@ function setCorrectAnswer() {
   let len = canvas.getObjects.length
 }
 
-// Zoomovani nad mapou
-canvas.on('mouse:wheel', function(opt) {
-  var delta = opt.e.deltaY;
-  var zoom = canvas.getZoom();
-  zoom *= 0.999 ** delta;
-  if (zoom > 20) zoom = 20;
-  if (zoom < 0.01) zoom = 0.01;
-  canvas.zoomToPoint({ x: opt.e.offsetX, y: opt.e.offsetY }, zoom);
-  opt.e.preventDefault();
-  opt.e.stopPropagation();
-  /* createResizeIconOnCanvas() */
-});
-
-/* Resetovani zoomu do puvodni pozice mapy */
-function resetZoom() {
-  canvas.setViewportTransform([1,0,0,1,0,0])
-}
-
-/* Nastaveni aktivni otazky */

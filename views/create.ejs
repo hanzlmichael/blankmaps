@@ -6,7 +6,7 @@
       <%- include('partials/header'); %>
 
         <div class="layout">
-          <aside id="questions">
+          <aside id="questions-panel">
             <div class="question-header-wrap">
               <h2>otázky</h2>
               <div id="add-question" class="svg-wrap">
@@ -15,6 +15,9 @@
                   <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z" />
                 </svg>
               </div>
+            </div>
+            <div class="questions">
+              
             </div>
           </aside>
           <main id="main">
@@ -87,10 +90,12 @@
               </div>
               <div class="option-wrapper"></div>
               <h3>NASTAVENÍ BODŮ ZA OTÁZKU</h3>
-              <fieldset id="points-field" class="field-input  field-input-sm">
-                <legend>Počet bodů</legend>
-                <div id="points-input" contenteditable="true" data-max-length="2" class="editable"></div>
-              </fieldset>
+              <div class="points">
+                <svg xmlns="http://www.w3.org/2000/svg" id="dec-point" height="24" viewBox="0 0 24 24" width="24"><path d="M0 0h24v24H0z" fill="none"/><path d="M19 13H5v-2h14v2z"/></svg>
+                <span id="point">1</span>
+                <svg xmlns="http://www.w3.org/2000/svg" id="inc-point"height="24" viewBox="0 0 24 24" width="24"><path d="M0 0h24v24H0z" fill="none"/><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
+              </div>
+
             </div>
           </main>
         </div>
@@ -98,9 +103,7 @@
     </div>
   </body>
   <script>
-    function deleteQuestion(e) {
-      document.querySelector('.q-wrap:last-of-type').remove()
-    }
+    
   </script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/fabric.js/521/fabric.js"></script>
 
