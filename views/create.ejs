@@ -44,41 +44,37 @@
               <canvas id="canvas"></canvas>
             </div>
             <div class="main-grid3">
-              <h3>TYP OTÁZKY</h3>
-              <div class="select-wrapper">
-                <fieldset class="fieldset-no-border">
-                  <!-- <legend>Vyber tvar</legend> -->
-                  <div class="w-select">
-                    <div class="try-select-wrapper" id="type-shape-wrap">
-                      <div class="tryselect" data-shape="point">Bod</div>
-                      <span>&#9660;</span>
-                    </div>
-                    <div class="opts" id="type-shape">
-                      <div class="opt" data-shape="point">Bod</div>
-                      <div class="opt" data-shape="curve">Křivka</div>
-                      <div class="opt" data-shape="polygon">Plocha</div>
-                    </div>
+              <h3>typ otázky</h3>
+
+              <div class="dropdown-container">
+                <div class="dropdown-wrapper">
+                  <div class="dropdown-wrap">
+                    <span id="selected-shape" data-value="point">Bod</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M0 0h24v24H0V0z" fill="white"/><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z" fill="black"/></svg>
                   </div>
-                </fieldset>
-                <fieldset class="fieldset-no-border">
-                  <!-- <legend>Vyber tvar</legend> -->
-                  <div class="w-select">
-                    <div class="try-select-wrapper" id="type-question-wrap">
-                      <div class="tryselect">V mapě 1 možnost</div>
-                      <span>&#9660;</span>
-                    </div>
-                    <div class="opts" id="type-question">
-                      <div class="opt" data-value="single">V mapě 1 možnost</div>
-                      <div class="opt" data-value="multiple">V mapě více možností</div>
-                    </div>
+                  <div class="dropdown-options drop-shapes">
+                    <div data-value="point">Bod</div>
+                    <div data-value="curve">Křivka</div>
+                    <div data-value="polygon">Plocha</div>
                   </div>
-                </fieldset>
               </div>
-              <br>
-              <h3>NASTAVENÍ ODPOVĚDI</h3>
+              
+              <div class="dropdown-wrapper">
+                <div class="dropdown-wrap">
+                  <span id="selected-question-type" data-value="single">1 Možnost</span>
+                  <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M0 0h24v24H0V0z" fill="white"/><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z" fill="black"/></svg>
+                </div>
+                <div class="dropdown-options drop-question-type">
+                  <div data-value="single">1 možnost</div>
+                  <div data-value="multiple">Více možností</div>
+                </div>
+              </div>
+              </div>
+
+              <h3>nastavení odpovědi</h3>
               <div class="add-option-wrapper">
                 <fieldset id="add-option-field" class="field-input field-input-sm">
-                  <legend>Přidat odpověď</legend>
+                  <legend class="legend-color">Přidat odpověď</legend>
                   <div id="add-option-input" contenteditable="true" data-max-length="30" class="editable"></div>
                 </fieldset>
                 <div id="add-option" class="svg-wrap">
@@ -89,7 +85,7 @@
                 </div>
               </div>
               <div class="option-wrapper"></div>
-              <h3>NASTAVENÍ BODŮ ZA OTÁZKU</h3>
+              <h3>nastavení bodů za odpověď</h3>
               <div class="points">
                 <svg xmlns="http://www.w3.org/2000/svg" id="dec-point" height="24" viewBox="0 0 24 24" width="24"><path d="M0 0h24v24H0z" fill="none"/><path d="M19 13H5v-2h14v2z"/></svg>
                 <span id="point">1</span>

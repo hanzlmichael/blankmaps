@@ -1,6 +1,7 @@
 import { canvas } from "./script.js";
 
 export function startAddingPoints() {
+  let permColor = "rgba(245,198,24,0.9)"
   let isDrawing = true;
 
   function deletePoint() {
@@ -18,9 +19,9 @@ export function startAddingPoints() {
       canvas.add(
         new fabric.Circle({
           radius: "7",
-          fill: "red",
-          top: obj.y - 15,
-          left: obj.x - 15,
+          fill: permColor,
+          top: obj.y - 7,
+          left: obj.x - 7,
           id: "delete",
         })
       );
@@ -36,9 +37,9 @@ export function startAddingPoints() {
 
       let newObj = new fabric.Circle({
         radius: "7",
-        fill: "red",
-        top: obj.y - 15,
-        left: obj.x - 15,
+        fill: permColor,
+        top: obj.y - 7,
+        left: obj.x - 7,
       });
       newObj.borderColor = "red";
       newObj.borderDashArray = [5];

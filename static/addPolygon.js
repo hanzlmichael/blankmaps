@@ -1,165 +1,148 @@
 import { canvas } from "./script.js"
 import { turnOfControls } from "./globalPrototypeSetting.js"
 
-var arr = []
-let start
-let clicks = 0
-let afterFirstClick = false
-let startCircle
+let c = console.log.bind(console)
 
-export function startAddingPolygons() {
-  console.log(2)
-  deletePolygon()
+let points = [];
+let clicks = 0;
+let tempColor = "rgba(245,198,24,0.45)"
+let permColor = "rgba(245,198,24,0.9)"
+
+function startDraw(o) {
+  canvas.off("mouse:move", firstDraw);
+  clicks++;
+
+  if (validate(o)) {    
+    canvas.off("mouse:move");
+    canvas.off("mouse:down");
+    clicks--;
+    points[clicks] = points[0]
+    points.pop()
+    drawFinalPolygon() 
+    resetValues()    
+    return;
+  }
+  canvas.on("mouse:move", drawFinal)
+}
+
+function drawFinal(o) {  
+  drawPolygon("temporary", tempColor, o);
+  if (validate(o)) {
+    points[clicks + 1] = points[0];
+    drawPolygon("temporary", permColor, o);
+  }
+}
+
+export function start() {
+  turnOfControls()
+  activateSettings() 
+  canvas.off('mouse:move')
+  canvas.off('mouse:down')
+
+  removeTempObjects() 
+  removeStartCircle()
   resetValues()
-  let isDrawing = true
-  fabric.Object.prototype.moveCursor = "default"
-  fabric.Object.prototype.hoverCursor = "default"
 
-  /* let arr = []
-  let start
-  let clicks = 0
-  let afterFirstClick = false
-  let startCircle
-  resetValues() */
+  canvas.on("mouse:move", firstDraw)
+  canvas.on("mouse:down", startDraw)
+}
 
+function firstDraw(o) {
+  points[clicks] = getCoords(o)
+  drawCircle(canvas.getPointer("mouse:move", false), "circle", true);
+}
 
-  /* function turnOfControls(obj) {
-    let controls = ["tl", "tr", "br", "bl", "ml", "mt", "mr", "mb", "mtr"]
-    controls.forEach((control) => obj.setControlVisible(control, false))
-    obj.hasBorders = false
-  } */
+function resetValues() {
+  points.length = 0
+  clicks = 0
+}
 
+function stop() {
+  canvas.off('mouse:move')
+  canvas.off('mouse:click')
+  canvas.clear()
+}
 
+function drawCircle(coords, type, startPoint) {
+  removeStartCircle()
+  let startCircle = new fabric.Circle({
+    radius: "3",
+    fill: permColor,
+    top: coords.y - 3,
+    left: coords.x - 3,
+    shapeType: type,
+    startPoint: startPoint,
+  });
+  canvas.add(startCircle);
+}
 
-  function drawCircleWhenDragging(coords) {    
-    startCircle = new fabric.Circle({
-      radius: "2",
-      fill: "rgba(255,0,0,0.75)",
-      top: coords.y - 2,
-      left: coords.x - 2,
-      id: "permanent",
-      startPoint: true,
-    })
-    turnOfControls(startCircle)
-    startCircle.hasBorders = false
-    canvas.add(startCircle)
-    start = coords
-  }
+function drawPolygon(type, color,o) {
+  let poly = new fabric.Polyline(points, {
+    fill: color,
+    stroke: permColor,
+    shapeType: type,
+  });
 
-  canvas.on("mouse:move", function (options) {
-    if (isDrawing) {
-      if (afterFirstClick) {
-        arr[clicks] = getCoords(options)
-        deletePolygon()
-        drawPolygon("temporary", "rgba(255,0,0,0.5)")
+  points[clicks] = getCoords(o);
+  removeTempObjects();
+  canvas.add(poly);
+}
 
-        if (
-          isPointInCircle(canvas.getPointer("mouse:over", false)) &&
-          clicks > 2
-        ) {
-          getTemporaryPolygon()
-          canvas.renderAll()
-        }
-      } else {
-        deleteStartPoint()
-        let coords = getCoords(options)
-        drawCircleWhenDragging(coords)
-      }
+function drawFinalPolygon() {  
+  removeTempObjects();
+  removeStartCircle()
+  let deepCopy = structuredClone(points)
+  let poly = new fabric.Polyline(deepCopy, {
+    fill: permColor,
+    stroke: permColor,
+    shapeType: "permament"
+  });
+  canvas.add(poly)
+  canvas.renderAll()
+}
+
+function removeTempObjects() {
+  let objs = canvas.getObjects();
+  objs.forEach((el) => {
+    if (el.shapeType == "temporary") {
+      canvas.remove(el);
     }
-  })
+  });
+}
 
-  canvas.on("mouse:down", function (options) {
-    if (isDrawing) {
-      afterFirstClick = true
-      arr.push(getCoords(options))
-      drawPolygon("temporary", "rgba(255,0,0,0.5)")
-      clicks++
-
-      if (
-        isPointInCircle(canvas.getPointer("mouse:down", false)) &&
-        clicks > 2
-      ) {
-        deletePolygon()
-        deleteStartPoint()
-        arr[clicks] = start
-        arr[clicks - 1] = start
-
-        isDrawing = false        
-        drawFinalPolygonTest()
-        //resetValues()
-        //"#F5423D" red color stejna jako close icon
-      }
+function removeStartCircle() {
+  let objs = canvas.getObjects();
+  objs.forEach((el) => {
+    if (el.shapeType == "circle") {
+      canvas.remove(el);
     }
-  })
+  });
+}
 
-  function resetValues() {
-    clicks = 0
-    afterFirstClick = false
-    arr.length = 0
-    startCircle = null
-  }
+function getCoords(o) {
+ // return canvas.getPointer(options.e, false);
+ console.log(canvas.getPointer("mouse:move", false))
+  if (o.e.type == "mousemove") return canvas.getPointer("mouse:move", false)
+	if (o.e.type == "mousedown") return canvas.getPointer("mouse:down", false)
+}
 
+function isPointInCircle(point) {
+  return (
+    Math.sqrt(
+      Math.pow(point.x - points[0].x, 2) + Math.pow(point.y - points[0].y, 2)
+    ) <= 4
+  );
+}
 
-  function getCoords(options) {
-    return canvas.getPointer(options.e, false)
-  }
-  function drawPolygon(type, color) {
-    let polygon = new fabric.Polyline(arr, {
-      fill: color,
-      stroke: "red",
-      strokeLineJoin: "round",
-      strokeWidth: 1,
-      id: type,
-    })
-    turnOfControls(polygon)
-    polygon.hasBorders = false
-    canvas.add(polygon)
-  }
-  function deletePolygon() {
-    canvas.getObjects().forEach(function (o) {
-      if (o.id === "temporary") {
-        canvas.remove(o)
-      }
-    })
-  }
-  function getTemporaryPolygon() {
-    canvas.getObjects().forEach(function (o) {
-      if (o.id === "temporary") {
-        o.set("fill", "rgba(255,0,0,0.75)")
-      }
-    })
-  }
+function validate(o) {
+	if (o.e.type == "mousemove") return isPointInCircle(canvas.getPointer("mouse:move", false)) && clicks > 2;
+	if (o.e.type == "mousedown") return isPointInCircle(canvas.getPointer("mouse:down", false)) && clicks > 2;
+	//console.log(o.e)
+  //return isPointInCircle(o.pointer) && clicks > 2;
+}
 
-  function drawFinalPolygonTest() {
-    var poly = new fabric.Polyline(
-      arr,
-      {
-        fill: "rgba(255,0,0,0.75)",
-        stroke: "red",
-        id: "permament"
-      }
-    )
-    console.log(arr)
-    poly.borderColor = "red"
-    poly.borderDashArray = [5]
-    poly.padding = 5
-    turnOfControls(poly)
-    canvas.add(poly)
-  }
-
-  function deleteStartPoint() {
-    canvas.getObjects().forEach(function (o) {
-      if (o.startPoint === true) {
-        canvas.remove(o)
-      }
-    })
-  }
-
-  function isPointInCircle(point) {
-    return (
-      Math.sqrt(
-        Math.pow(point.x - arr[0].x, 2) + Math.pow(point.y - arr[0].y, 2)
-      ) <= 4
-    )
-  }
+function activateSettings() {
+  fabric.Object.prototype.padding = 10;
+  fabric.Object.prototype.borderColor = "rgb(211,33,45)"
+  fabric.Object.prototype.borderDashArray = [5]
 }
